@@ -1,0 +1,24 @@
+<h1>📊 Dashboard</h1>
+
+<ul>
+  <li><strong>Total Products:</strong> {{ total_products }}</li>
+  <li><strong>Total Customers:</strong> {{ total_customers }}</li>
+  <li><strong>Total Orders:</strong> {{ total_orders }}</li>
+  <li><strong>Total Order Amount:</strong> ${{ order_amount }}</li>
+  <li><strong>Total Purchases:</strong> {{ total_purchases }}</li>
+  <li><strong>Total Purchase Amount:</strong> ${{ purchase_amount }}</li>
+</ul>
+
+<hr>
+
+<h2>🔗 Pages</h2>
+<ul>
+  <li><a href="{% url 'product_list' %}">📦 Products</a></li>
+  <li><a href="{% url 'customer_list' %}">👥 Customers</a></li>
+  <li><a href="{% url 'order_list' %}">🧾 Orders</a></li>
+  <li><a href="{% url 'order_report' %}">📈 Order Report</a></li>
+  <li><a href="{% url 'purchase_list' %}">📥 Purchases</a></li>
+  <li><a href="{% url 'purchase_report' %}">📉 Purchase Report</a></li>
+  <li><a href="{% url 'supplier_list' %}">🚚 Suppliers</a></li>
+  <li><a href="{% url 'employee_list' %}">👨‍💼 Employees</a></li>
+</ul>

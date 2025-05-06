@@ -1,0 +1,40 @@
+<h2>📦 All Purchases</h2>
+
+<a href="{% url 'purchase_create' %}">
+  ➕ Create New Purchase
+</a>
+
+<br><br>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Supplier</th>
+      <th>Employee</th>
+      <th>Total</th>
+      <th>Paid</th>
+      <th>Remain</th>
+      <th>Created At</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for purchase in purchases %}
+    <tr>
+      <td>{{ purchase.id }}</td>
+      <td>{{ purchase.supplier.name }}</td>
+      <td>{{ purchase.employee.name }}</td>
+      <td>${{ purchase.total_amount }}</td>
+      <td>${{ purchase.total_paid }}</td>
+      <td>${{ purchase.total_remain }}</td>
+      <td>{{ purchase.created_at|date:"Y-m-d H:i" }}</td>
+      <td>
+        <a href="{% url 'purchase_detail' purchase.id %}">🔍 View</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="8">No purchases found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

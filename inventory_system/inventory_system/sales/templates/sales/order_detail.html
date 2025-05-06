@@ -1,0 +1,41 @@
+<h2>📄 Order #{{ order.id }}</h2>
+
+<p><strong>Customer:</strong> {{ order.customer.name }}</p>
+<p><strong>Handled by:</strong> {{ order.employee.name }}</p>
+<p><strong>Created at:</strong> {{ order.created_at|date:"Y-m-d H:i" }}</p>
+
+<hr>
+
+<h3>🧾 Items</h3>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Product</th>
+      <th>Qty</th>
+      <th>Unit Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>${{ item.product.selling_price }}</td>
+      <td>${{ item.total_price }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<hr>
+
+<h3>💰 Summary</h3>
+<p><strong>Total Amount:</strong> ${{ order.total_amount }}</p>
+<p><strong>Total Paid:</strong> ${{ order.total_paid }}</p>
+<p><strong>Remaining:</strong> ${{ order.total_remain }}</p>
+
+<a href="{% url 'order_list' %}">← Back to Orders</a>

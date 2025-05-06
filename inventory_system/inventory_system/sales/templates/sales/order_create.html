@@ -1,0 +1,131 @@
+<h2>Create Order</h2>
+
+<form method="post" action="{% url 'order_submit' %}">
+  {% csrf_token %}
+
+  <!-- Customer Field -->
+  <p>
+    {{ order_form.customer.label_tag }}
+    {{ order_form.customer }}
+  </p>
+
+  <!-- 🧾 Add Product -->
+  <h3>🧾 Add Product</h3>
+  <select id="productSelect">
+    {% for p in products %}
+      <option value="{{ p.id }}" data-name="{{ p.name }}" data-price="{{ p.selling_price }}">
+        {{ p.name }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <input type="number" id="quantityInput" min="1" placeholder="Quantity">
+  <button type="button" id="addItemBtn">➕ Add</button>
+
+  <br><br>
+
+  <!-- Table of Items -->
+  <table border="1" id="itemTable">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- 💰 Grand Total -->
+  <h3>Grand Total: $<span id="grandTotal">0.00</span></h3>
+
+  <!-- 💵 Total Paid (Auto-Filled) -->
+  <p>
+    {{ order_form.total_paid.label_tag }}
+    {{ order_form.total_paid }}
+  </p>
+
+  <!-- Hidden field for JSON items -->
+  <input type="hidden" name="items_json" id="itemsJson">
+
+  <br>
+  <button type="submit">💾 Save Order</button>
+</form>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const productSelect = document.getElementById('productSelect');
+  const quantityInput = document.getElementById('quantityInput');
+  const addItemBtn = document.getElementById('addItemBtn');
+  const itemTableBody = document.querySelector('#itemTable tbody');
+  const itemsJson = document.getElementById('itemsJson');
+  const grandTotalDisplay = document.getElementById('grandTotal');
+  const totalPaidInput = document.getElementById('id_total_paid');
+
+  let items = [];
+
+  function renderTable() {
+    itemTableBody.innerHTML = '';
+    let grandTotal = 0;
+
+    items.forEach((item, index) => {
+      const rowTotal = item.quantity * item.price;
+      grandTotal += rowTotal;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>${item.price.toFixed(2)}</td>
+        <td>${rowTotal.toFixed(2)}</td>
+        <td><button type="button" onclick="removeItem(${index})">🗑️</button></td>
+      `;
+      itemTableBody.appendChild(row);
+    });
+
+    // Update total fields
+    itemsJson.value = JSON.stringify(items);
+    grandTotalDisplay.textContent = grandTotal.toFixed(2);
+
+    // Auto-fill total_paid
+    if (totalPaidInput) {
+      totalPaidInput.value = grandTotal.toFixed(2);
+    }
+  }
+
+  addItemBtn.addEventListener('click', () => {
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
+    const productId = selectedOption.value;
+    const productName = selectedOption.getAttribute('data-name');
+    const productPrice = parseFloat(selectedOption.getAttribute('data-price'));
+    const quantity = parseInt(quantityInput.value);
+
+    if (!quantity || quantity <= 0) {
+      alert("Please enter a valid quantity.");
+      return;
+    }
+
+    items.push({
+      id: productId,
+      name: productName,
+      quantity: quantity,
+      price: productPrice
+    });
+
+    renderTable();
+
+    // Reset fields
+    quantityInput.value = '';
+    productSelect.selectedIndex = 0;
+    quantityInput.focus();
+  });
+
+  window.removeItem = function(index) {
+    items.splice(index, 1);
+    renderTable();
+  };
+});
+</script>
