@@ -1,0 +1,30 @@
+<h2>📊 Purchase Report</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Employee</th>
+      <th>Supplier</th>
+      <th>Total Amount</th>
+      <th>Total Paid</th>
+      <th>Total Remain</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reports %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ r.username }}</td>
+      <td>{{ r.supplier_name }}</td>
+      <td>${{ r.total_amount }}</td>
+      <td>${{ r.total_paid }}</td>
+      <td>${{ r.total_remain }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">No purchases to report.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{% url 'purchase_list' %}">← Back to Purchase List</a>

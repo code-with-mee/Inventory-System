@@ -1,0 +1,40 @@
+<h2>🧾 All Orders</h2>
+
+<a href="{% url 'order_create' %}">
+  ➕ Create New Order
+</a>
+
+<br><br>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Employee</th>
+      <th>Total</th>
+      <th>Paid</th>
+      <th>Remain</th>
+      <th>Created At</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.customer.name }}</td>
+      <td>{{ order.employee.name }}</td>
+      <td>${{ order.total_amount }}</td>
+      <td>${{ order.total_paid }}</td>
+      <td>${{ order.total_remain }}</td>
+      <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
+      <td>
+        <a href="{% url 'order_detail' order.id %}">🔍 View</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="8">No orders found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
