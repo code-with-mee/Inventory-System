@@ -1,24 +1,33 @@
-<h1>📊 Dashboard</h1>
+{% extends "base.html" %}
+{% block title %}Inventory{% endblock %}
 
-<ul>
-  <li><strong>Total Products:</strong> {{ total_products }}</li>
-  <li><strong>Total Customers:</strong> {{ total_customers }}</li>
-  <li><strong>Total Orders:</strong> {{ total_orders }}</li>
-  <li><strong>Total Order Amount:</strong> ${{ order_amount }}</li>
-  <li><strong>Total Purchases:</strong> {{ total_purchases }}</li>
-  <li><strong>Total Purchase Amount:</strong> ${{ purchase_amount }}</li>
-</ul>
+{% block content %}
+<h2>Dashboard</h2>
 
-<hr>
-
-<h2>🔗 Pages</h2>
-<ul>
-  <li><a href="{% url 'product_list' %}">📦 Products</a></li>
-  <li><a href="{% url 'customer_list' %}">👥 Customers</a></li>
-  <li><a href="{% url 'order_list' %}">🧾 Orders</a></li>
-  <li><a href="{% url 'order_report' %}">📈 Order Report</a></li>
-  <li><a href="{% url 'purchase_list' %}">📥 Purchases</a></li>
-  <li><a href="{% url 'purchase_report' %}">📉 Purchase Report</a></li>
-  <li><a href="{% url 'supplier_list' %}">🚚 Suppliers</a></li>
-  <li><a href="{% url 'employee_list' %}">👨‍💼 Employees</a></li>
-</ul>
+<div class="dashboard-card">
+  <div class="card">
+    <h3>Total Products</h3>
+    <p>{{ total_products }}</p>
+  </div>
+  <div class="card">
+    <h3>Total Customers</h3>
+    <p>{{ total_customers }}</p>
+  </div>
+  <div class="card">
+    <h3>Total Orders</h3>
+    <p>{{ total_orders }}</p>
+  </div>
+  <div class="card">
+    <h3>Total Sales</h3>
+    <p>${{ order_amount }}</p>
+  </div>
+    <div class="card">
+    <h3>Total Purchase</h3>
+    <p>{{ total_purchases }}</p>
+  </div>
+  <div class="card">
+    <h3>Purchase Amount</h3>
+    <p>${{ purchase_amount }}</p>
+  </div>
+</div>
+{% endblock %}
