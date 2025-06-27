@@ -1,18 +1,44 @@
-<h2>Create Order</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
+{% extends "base.html" %}
+{% block title %}Create Order{% endblock %}
 
-  <h3>Order Items</h3>
-  {{ formset.management_form }}
-  <table>
-    {% for form in formset %}
-    <tr>
-      <td>{{ form.product }}</td>
-      <td>{{ form.quantity }}</td>
-      <td>{% if form.instance.pk %} {{ form.DELETE }} {% endif %}</td>
-    </tr>
-    {% endfor %}
-  </table>
+{% block content %}
+<div class="container-md">
+  <h2>Create Order</h2>
 
-  <button type="submit">Save Order</button>
-</form>
+  <div class="form-container">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <h4 style="margin-top: 20px;">Order Items</h4>
+      {{ formset.management_form }}
+
+      <table class="table" style="margin-top: 10px;">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for form in formset %}
+          <tr>
+            <td>{{ form.product }}</td>
+            <td>{{ form.quantity }}</td>
+            <td>
+              {% if form.instance.pk %}
+                {{ form.DELETE }}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <button type="submit" class="button-link">Save Order</button>
+      <a href="{% url 'order_list' %}" class="button-link delete-btn">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
