@@ -1,18 +1,7 @@
-{% extends "base.html" %}
-{% block title %}Edit Customer{% endblock %}
+<h2>Edit Customer</h2>
+<form method="post">
+  {% csrf_token %} {{form.as_p}}
+  <button type="submit">Save</button>
+</form>
 
-{% block content %}
-<div class="container-md">
-  <h2>Edit Customer</h2>
-
-  <div class="form-container">
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-
-      <button type="submit" class="button-link">Save</button>
-      <a href="{% url 'customer_list' %}" class="button-link delete-btn">Cancel</a>
-    </form>
-  </div>
-</div>
-{% endblock %}
+<a href="{% url 'customer_list' %}">Cancel</a>
