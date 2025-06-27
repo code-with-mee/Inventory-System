@@ -20,6 +20,7 @@ from customers import urls as customer_urls
 from suppliers import urls as supplier_url
 from products import urls as product_urls
 from employees import urls as employee_urls
+from sales import urls as sale_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path("suppliers/",include(supplier_url)),
     path("",include(product_urls)),
     path("employees/",include(employee_urls)),
+    path("orders/",include(sale_urls)),
 ]
