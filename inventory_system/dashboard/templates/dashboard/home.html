@@ -1,9 +1,34 @@
-<h1>📊 Dashboard</h1>
-<ul>
-  <li><strong>Total Categories:</strong> {{ total_category }}</li>
-  <li><strong>Total Products:</strong> {{ total_product }}</li>
-  <li><strong>Total Customers:</strong> {{ total_customer }}</li>
-  <li><strong>Total Suppliers:</strong> {{ total_supplier }}</li>
-  <li><strong>Total Order Amount:</strong> ${{ total_order_amount }}</li>
-  <li><strong>Total Purchase Amount:</strong> ${{ total_purchase_amount }}</li>
-</ul>
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block content %}
+
+<div class="container-md">
+  <h2 style="margin-bottom: 20px">📊 Dashboard Overview</h2>
+
+  <div class="dashboard-card">
+    <div class="card">
+      <h3>Total Categories</h3>
+      <p>{{ total_category }}</p>
+    </div>
+    <div class="card">
+      <h3>Total Products</h3>
+      <p>{{ total_product }}</p>
+    </div>
+    <div class="card">
+      <h3>Total Customers</h3>
+      <p>{{ total_customer }}</p>
+    </div>
+    <div class="card">
+      <h3>Total Suppliers</h3>
+      <p>{{ total_supplier }}</p>
+    </div>
+    <div class="card">
+      <h3>Total Order Amount</h3>
+      <p>${{ total_order_amount }}</p>
+    </div>
+    <div class="card">
+      <h3>Total Purchase Amount</h3>
+      <p>${{ total_purchase_amount }}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
