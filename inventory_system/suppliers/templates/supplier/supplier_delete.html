@@ -1,6 +1,17 @@
-<h2>Do you want to delete supplier : {{ supplier.name}}</h2>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Confirm</button>
-  <a href="{% url 'supplier_list' %}">Cancel</a>
-</form>
+{% extends "base.html" %}
+{% block title %}Delete Supplier{% endblock %}
+
+{% block content %}
+<div class="container-md">
+  <div class="form-container">
+    <h2>Delete Supplier</h2>
+    <p>Are you sure you want to delete the supplier: <strong>{{ supplier.name }}</strong>?</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="button-link delete-btn">Confirm</button>
+      <a href="{% url 'supplier_list' %}" class="button-link">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
