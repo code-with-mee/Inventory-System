@@ -1,7 +1,11 @@
-<h2>Delete Product</h2>
-<p>Are you sure you want to delete "{{ product.name }}"?</p>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Confirm</button>
-  <a href="{% url 'product_list' %}">Cancel</a>
-</form>
+{% extends 'base.html' %} {% block title %} Delete Product {% endblock title %}
+{% block content %}
+<div class="container-md">
+  <a href="{% url 'product_list' %}" class="button-link"> Product List</a>
+  <form method="post" class="form-container">
+    <h2>Do you want to delete product : {{product.name}} ?</h2>
+    {% csrf_token %}
+    <button type="submit" class="button-link">Confirm</button>
+  </form>
+</div>
+{% endblock content %}
