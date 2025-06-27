@@ -1,0 +1,18 @@
+<h2>Create Order</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+
+  <h3>Order Items</h3>
+  {{ formset.management_form }}
+  <table>
+    {% for form in formset %}
+    <tr>
+      <td>{{ form.product }}</td>
+      <td>{{ form.quantity }}</td>
+      <td>{% if form.instance.pk %} {{ form.DELETE }} {% endif %}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <button type="submit">Save Order</button>
+</form>
