@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Order
 from .forms import OrderForm, OrderDetailFormSet
+from employees.decorators import employee_login_required
 
+@employee_login_required
 def order_list(request):
     orders = Order.objects.select_related('customer', 'employee').all()
     return render(request, 'sale/order_list.html', {'orders': orders})
 
-
+@employee_login_required
 def create_order(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -36,7 +38,7 @@ def create_order(request):
         'formset': formset
     })
 
-
+@employee_login_required
 def order_detail(request, pk):
     order = get_object_or_404(Order, pk=pk)
     return render(request, 'sale/order_detail.html', {'order': order})

@@ -4,7 +4,9 @@ from products.models import Product, Category
 from suppliers.models import Supplier
 from sales.models import Order
 from purchases.models import Purchase
+from employees.decorators import employee_login_required
 
+@employee_login_required
 def dashboard_home(request):
     # Count totals
     total_category = Category.objects.count()

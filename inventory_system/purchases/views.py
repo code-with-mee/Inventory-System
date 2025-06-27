@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Purchase
 from .forms import PurchaseForm, PurchaseDetailFormSet
+from employees.decorators import employee_login_required
 
+@employee_login_required
 def purchase_list(request):
     purchases = Purchase.objects.select_related('supplier', 'employee').all()
     return render(request, 'purchase/purchase_list.html', {'purchases': purchases})
 
-
+@employee_login_required
 def create_purchase(request):
     if request.method == 'POST':
         form = PurchaseForm(request.POST)
@@ -34,7 +36,7 @@ def create_purchase(request):
 
     return render(request, 'purchase/purchase_add.html', {'form': form,'formset': formset})
 
-
+@employee_login_required
 def purchase_detail(request, pk):
     purchase = Purchase.objects.filter(pk=pk).first()
     return render(request, 'purchase/purchase_detail.html', {'purchase': purchase})

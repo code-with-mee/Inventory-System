@@ -8,7 +8,14 @@
   </head>
   <body>
     <div class="navbar">
-      <div class="left">POS</div>
+      <div class="left">
+        <a
+          href="{% url 'dashboard_home' %}"
+          style="color: white; text-decoration: none"
+          >POS</a
+        >
+      </div>
+
       <div class="center">
         <a href="{% url 'dashboard_home' %}">Dashboard</a>
         <a href="{% url 'category_list' %}">Category</a>
@@ -19,7 +26,7 @@
         <a href="{% url 'purchase_list' %}">Purchase</a>
       </div>
       <div class="right">
-        <a href="">Logout</a>
+        <a href="{% url 'logout' %}">Logout</a>
       </div>
     </div>
 

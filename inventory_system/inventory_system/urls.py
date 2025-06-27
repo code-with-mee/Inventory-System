@@ -23,6 +23,7 @@ from employees import urls as employee_urls
 from sales import urls as sale_urls
 from purchases import urls as purchase_urls
 from dashboard import urls as dashboard_urls
+from accounts import urls as account_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +34,5 @@ urlpatterns = [
     path("orders/",include(sale_urls)),
     path("purchases/",include(purchase_urls)),
     path("",include(dashboard_urls)),
+    path("",include(account_urls)),
 ]
